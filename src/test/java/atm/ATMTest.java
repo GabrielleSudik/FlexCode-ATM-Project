@@ -72,5 +72,33 @@ public class ATMTest {
 		//assert -- check that something is what you expect
 		assertEquals(400, balance);
 	}
+	
+	//new test: make sure withdrawal works
+	//code is similar to above, but with added line checking
+	//that the withdraw method (lulz) works
+	@Test
+	public void shouldHaveBalanceOf100AfterWithdrawalOf100(){
+		
+		//the name of this method -- see how specific it is? that's good.
+		ATM underTest = new ATM(200);
+		
+		underTest.withdraw(100);
+		
+		int balance = underTest.getBalance();
+		
+		assertEquals(100, balance);
+	}
+	
+	@Test
+	public void shouldHaveBalanceOfZeroOrGreaterAfterWithdrawOf300(){
+		
+		ATM underTest = new ATM(200);
+		
+		underTest.withdraw(300);
+		
+		int balance = underTest.getBalance();
+		
+		assertEquals(0, balance);
+	}
 
 }
