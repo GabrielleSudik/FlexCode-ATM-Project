@@ -50,7 +50,7 @@ public class ATMTest {
 	public void shouldHaveDefaultBalanceOf300(){
 		
 		//arrange -- create a new instance of the ATM class
-		ATM underTest = new ATM(300);
+		ATM underTest = new ATM(300, "12345");
 		
 		//act -- create a default balance for the account
 		int balance = underTest.getBalance();
@@ -64,7 +64,7 @@ public class ATMTest {
 	public void shouldHaveDefaultBalanceOf400(){
 		
 		//arrange -- create a new instance of the ATM class
-		ATM underTest = new ATM(400);
+		ATM underTest = new ATM(400, "12345");
 		
 		//act -- create a default balance for the account
 		int balance = underTest.getBalance();
@@ -80,7 +80,7 @@ public class ATMTest {
 	public void shouldHaveBalanceOf100AfterWithdrawalOf100(){
 		
 		//the name of this method -- see how specific it is? that's good.
-		ATM underTest = new ATM(200);
+		ATM underTest = new ATM(200, "12345");
 		
 		underTest.withdraw(100);
 		
@@ -90,15 +90,52 @@ public class ATMTest {
 	}
 	
 	@Test
-	public void shouldHaveBalanceOfZeroOrGreaterAfterWithdrawOf300(){
+	public void shouldHaveBalanceOfZeroAfterWithdrawOf300(){
 		
-		ATM underTest = new ATM(200);
+		ATM underTest = new ATM(200, "12345");
 		
 		underTest.withdraw(300);
 		
 		int balance = underTest.getBalance();
 		
 		assertEquals(0, balance);
+	}
+	
+	@Test
+	public void shouldHaveBalanceOf200AfterDepositOf100(){
+		
+		ATM underTest = new ATM(100, "12345");
+		
+		underTest.deposit(100);
+		
+		int balance = underTest.getBalance();
+		
+		assertEquals(200, balance);
+	}
+	
+	//these next two are different
+	//they check a bool.
+	//the one that should work matches the set variable (12345)
+	//the one that should "fail" does not match the set variable
+	
+	@Test
+	public void shouldAllowAccessByPIN(){
+		
+		ATM underTest = new ATM(100, "12345");
+		
+		boolean access = underTest.allowAccess("12345");
+		
+		assertTrue(access);
+	}
+	
+	@Test
+	public void shouldDenyAccessByPIN(){
+		
+		ATM underTest = new ATM(100, "12345");
+		
+		boolean access = underTest.allowAccess("12346");
+		
+		assertFalse(access);
 	}
 
 }
